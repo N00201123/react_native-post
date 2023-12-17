@@ -45,8 +45,7 @@ const handleClick = () => {
     formData.append("user", form.user);
     formData.append("likes", form.likes);
     formData.append("tags", form.tags);
-
-    //formData.append("image", {uri: form.image, name: "image.jpg", type: "image/jpeg"});
+    // formData.append("image_path", {uri: form.image, name: "image.jpg", type: "image/jpeg"});
 
     axios.post(`https://express-post-mhct.vercel.app/api/posts/`, form, {
         headers: {
@@ -104,7 +103,7 @@ const handleClick = () => {
         <Text>likes</Text>
         <TextInput 
             style = {styles.input}
-            placeholder='likes'
+            placeholder='Likes'
             onChange={handleChange}
             value={form.description}
             id="likes"
@@ -113,7 +112,7 @@ const handleClick = () => {
         <Text>tags</Text>
         <TextInput 
             style = {styles.input}
-            placeholder='tags'
+            placeholder='Tags'
             onChange={handleChange}
             value={form.description}
             id="tags"
@@ -134,6 +133,7 @@ const styles = StyleSheet.create({
     input: {
       height: 40,
       margin: 12,
+      backgroundColor: '##ABEBC6',
       borderWidth: 1,
       padding: 10,
     }

@@ -26,9 +26,6 @@ export default function TagItem({tag, onDelete}: MyProps) {
          </Link>
 
            <Text>{tag.posts}</Text>
-           {/* <Button title="Edit" onPress={() => router.push(`/tags/${tag._id}/edit`)}/>
-           <DeleteBtn resource="tag" id={tag._id} deleteCallback={onDelete}/> */}
-           <Text>___________________</Text>
         </View>
     )
 }

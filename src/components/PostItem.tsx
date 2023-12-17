@@ -8,6 +8,7 @@ interface MyProps {
         _id: string,
         title: string;
         likes: number;
+        image_path: any;
     }
     onDelete: (id?: string) => void;
 }
@@ -29,11 +30,10 @@ export default function PostItem({post, onDelete}: MyProps) {
            <Text>{post.likes}</Text>
            <Image
             style={{width: 200, height: 200}}
-            //source={`https://api-image-post.s3.eu-west-1.amazonaws.com/${post.image_path}`}
+            source={`https://api-image-post.s3.eu-west-1.amazonaws.com/${post.image_path}`}
            />
            <Button title="Edit" onPress={() => router.push(`/posts/${post._id}/edit`)}/>
            <DeleteBtn resource="posts" id={post._id} deleteCallback={onDelete}/>
-           {/* <Text>___________________</Text> */}
         </View>
     )
 }
@@ -41,7 +41,7 @@ export default function PostItem({post, onDelete}: MyProps) {
 // const button = StyleSheet.create({
 //     container: {
 //       flex: 1,
-//       backgroundColor: '#fff',
+//       backgroundColor: '#ABEBC6',
 //       alignItems: 'center',
 //       justifyContent: 'center',
 //     },

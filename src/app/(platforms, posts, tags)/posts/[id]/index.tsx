@@ -32,7 +32,7 @@ export default function Page() {
 
   return (
     <>
-        {/* <Text>{festival.title}</Text> */}
+        {/* <Text>{post.description}</Text> */}
         <Text>{error}</Text>
         
     </>

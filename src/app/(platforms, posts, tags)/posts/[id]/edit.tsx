@@ -22,7 +22,7 @@ export default function Page() {
     likes: "",
     date: "",
     tags: ""
-});
+  });
 
 useEffect(() => {
   navigation.setOptions({ title: 'Edit Post', });
@@ -144,6 +144,7 @@ const handleClick = () => {
             value={form.tags}
             id="tags"
         />
+
 
         <Button 
             onPress={handleClick}

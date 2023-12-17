@@ -28,7 +28,6 @@ export default function PlatformItem({platform, onDelete}: MyProps) {
            <Text>{platform.description}</Text>
            <Button title="Edit" onPress={() => router.push(`/platforms/${platform._id}/edit`)}/>
            <DeleteBtn resource="platforms" id={platform._id} deleteCallback={onDelete}/>
-           <Text>___________________</Text>
         </View>
     )
 }
