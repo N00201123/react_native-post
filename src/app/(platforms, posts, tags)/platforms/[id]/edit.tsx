@@ -1,37 +1,37 @@
 import axios from 'axios';
 import { useEffect, useState} from 'react';
 import { TextInput, StyleSheet, Button, Text } from 'react-native';
-import {  useLocalSearchParams, useRouter } from 'expo-router';
+import {  useLocalSearchParams, useRouter, useNavigation } from 'expo-router';
 import { useSession } from '../../../../contexts/AuthContext'
-import { PostType } from '../../../../types';
+import { PlatformType } from '../../../../types';
 
 
 export default function Page() {
   const { session, isLoading } = useSession();
-  const [post, setPost] = useState(null);
+  const [platform, setPlatform] = useState(null);
   const [error, setError] = useState("");
   const { id } = useLocalSearchParams();
   const router = useRouter();
+  const navigation = useNavigation();
 
-  const [form, setForm] = useState<PostType>({
-    title: "",
-    description: "",
-    platform: "",
-    user: "",
-    likes: "",
-    date: "",
-    tags: ""
+  const [form, setForm] = useState<PlatformType>({
+    name: "",
+    description: ""
 });
 
   useEffect(() => {
-    axios.get(`https://express-post-mhct.vercel.app/api/posts/${id}`, {
+    navigation.setOptions({ title: 'Edit Platform', });
+  }, [navigation]);
+
+  useEffect(() => {
+    axios.get(`https://express-post-mhct.vercel.app/api/platforms/${id}`, {
       headers: {
         Authorization: `Bearer ${session}`
       }
     })
     .then(response => {
       console.log(response.data);
-      setPost(response.data);
+      setPlatform(response.data);
       setForm(response.data);
     })
     .catch(e => {
@@ -42,7 +42,7 @@ export default function Page() {
 
   if(isLoading) return <Text>Loading...</Text>
 
-  if(!post) return <Text>{error}</Text>
+  if(!platform) return <Text>{error}</Text>
 
   const handleChange = (e: any) => {
     console.log(e.target.value);
@@ -60,7 +60,7 @@ export default function Page() {
 const handleClick = () => {
     console.log(form);
 
-    axios.put(`https://express-post-mhct.vercel.app/api/posts/${id}`, form, {
+    axios.put(`https://express-post-mhct.vercel.app/api/platforms/${id}`, form, {
         headers: {
             Authorization: `Bearer ${session}`
         }
@@ -77,13 +77,13 @@ const handleClick = () => {
 
   return (
     <>
-    <Text>Title</Text>
+    <Text>Name</Text>
        <TextInput 
             style = {styles.input}
-            placeholder='Title'
+            placeholder='Name'
             onChange={handleChange}
-            value={form.title}
-            id="title"
+            value={form.name}
+            id="name"
         />
 
         <Text>Description</Text>
@@ -95,55 +95,12 @@ const handleClick = () => {
             id="description"
         />
 
-        <Text>Platform</Text>
-        <TextInput 
-            style = {styles.input}
-            placeholder='Platform'
-            onChange={handleChange}
-            value={form.description}
-            id="platform"
+      <Button 
+        onPress={handleClick}
+        title='Submit'
+        color="#eb3b5a"
         />
-
-        <Text>User</Text>
-        <TextInput 
-            style = {styles.input}
-            placeholder='User'
-            onChange={handleChange}
-            value={form.user}
-            id="user"
-            />
-
-        <Text>Likes</Text>
-        <TextInput 
-            style = {styles.input}
-            placeholder='Likes'
-            onChange={handleChange}
-            value={form.likes}
-            id="likes"
-        />  
-
-        <Text>Date</Text>
-        <TextInput 
-            style = {styles.input}
-            placeholder='Date'
-            onChange={handleChange}
-            value={form.date}
-            id="date"
-            />
-
-        <Text>Tags</Text>
-        <TextInput 
-            style = {styles.input}
-            placeholder='Tags'
-            onChange={handleChange}
-            value={form.tags}
-            id="tags"
-        />
-        </>
-
-        
-
-        
+    </>
   );
   
   

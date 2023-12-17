@@ -1,10 +1,12 @@
 import { TextInput, StyleSheet, Button, Text } from 'react-native';
-//import { Text } from 'react-native';
+import icon from 'react-native-paper';
 import { useState } from 'react';
-//import { Button } from 'react-native' ;
 import axios from 'axios';
 import { useSession } from '../contexts/AuthContext'
 import { LoginFormType } from '../types';
+import { useFonts } from 'expo-font';
+
+
 
 
 
@@ -43,10 +45,16 @@ export default function LoginForm() {
             //console.log(e);
             setError(e.response.data.message);
           })
+
+    // const [fontsLoaded] = useFonts({
+    //     'Inter-Black': require('./src/assets/fonts/Inter-Black.otf')
+    // });
     };
 
     return (
         <>
+<Text style={{textAlign: 'center', fontFamily: 'Inter-Black', fontSize: 30}}>Welcome Back</Text>
+        <Text>Login</Text>
             <TextInput 
                 style = {styles.input}
                 placeholder='Email'
@@ -76,8 +84,8 @@ export default function LoginForm() {
 
 const styles = StyleSheet.create({
     input: {
-      height: 40,
-      margin: 12,
+      height: 30,
+      margin: 14,
       borderWidth: 1,
       padding: 10,
     }

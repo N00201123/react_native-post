@@ -1,16 +1,18 @@
 import axios from 'axios';
-import { useState} from 'react';
+import { useEffect, useState} from 'react';
 import { TextInput, StyleSheet, Button, Text } from 'react-native';
-import {  useRouter } from 'expo-router';
-import { useSession } from '../../../contexts/AuthContext'
-import { PostType } from '../../../types';
+import {  useLocalSearchParams, useRouter, useNavigation } from 'expo-router';
+import { useSession } from '../../../../contexts/AuthContext'
+import { PostType } from '../../../../types';
 
 
 export default function Page() {
   const { session, isLoading } = useSession();
-  
+  const [post, setPost] = useState(null);
   const [error, setError] = useState("");
+  const { id } = useLocalSearchParams();
   const router = useRouter();
+  const navigation = useNavigation();
 
   const [form, setForm] = useState<PostType>({
     title: "",
@@ -22,12 +24,37 @@ export default function Page() {
     tags: ""
 });
 
+useEffect(() => {
+  navigation.setOptions({ title: 'Edit Post', });
+}, [navigation]);
+
+  useEffect(() => {
+    axios.get(`https://express-post-mhct.vercel.app/api/posts/${id}`, {
+      headers: {
+        Authorization: `Bearer ${session}`
+      }
+    })
+    .then(response => {
+      console.log(response.data);
+      setPost(response.data);
+      setForm(response.data);
+    })
+    .catch(e => {
+      console.log(e);
+      setError(e.response.data.message);
+    })
+  }, []);
 
   if(isLoading) return <Text>Loading...</Text>
 
+  if(!post) return <Text>{error}</Text>
 
   const handleChange = (e: any) => {
     console.log(e.target.value);
+
+    // setForm({
+    //     [e.target.id]: e.target.value
+    // })
 
     setForm(previousState => ({
         ...previousState,
@@ -38,24 +65,14 @@ export default function Page() {
 const handleClick = () => {
     console.log(form);
 
-    let formData = new FormData();
-    formData.append("title", form.title);
-    formData.append("description", form.description);
-    formData.append("platform", form.platform);
-    formData.append("user", form.user);
-    formData.append("likes", form.description);
-    formData.append("tags", form.description);
-
-    //formData.append("image", {uri: form.image, name: "image.jpg", type: "image/jpeg"});
-
-    axios.post(`https://festivals-api.vercel.app/api/posts/`, form, {
+    axios.put(`https://express-post-mhct.vercel.app/api/posts/${id}`, form, {
         headers: {
             Authorization: `Bearer ${session}`
         }
     })
     .then( response => {
         console.log(response.data)
-        router.push(`/posts/${response.data._id}`);
+        router.push(`/posts/${id}`);
     })
     .catch(e => {
         console.error(e)
@@ -99,28 +116,45 @@ const handleClick = () => {
             onChange={handleChange}
             value={form.user}
             id="user"
-        />
+            />
 
-        <Text>likes</Text>
+        <Text>Likes</Text>
         <TextInput 
             style = {styles.input}
-            placeholder='likes'
+            placeholder='Likes'
             onChange={handleChange}
-            value={form.description}
+            value={form.likes}
             id="likes"
-        />
+        />  
 
-        <Text>tags</Text>
+        <Text>Date</Text>
         <TextInput 
             style = {styles.input}
-            placeholder='tags'
+            placeholder='Date'
             onChange={handleChange}
-            value={form.description}
+            value={form.date}
+            id="date"
+            />
+
+        <Text>Tags</Text>
+        <TextInput 
+            style = {styles.input}
+            placeholder='Tags'
+            onChange={handleChange}
+            value={form.tags}
             id="tags"
         />
 
+        <Button 
+            onPress={handleClick}
+            title='Submit'
+            color="#eb3b5a"
+        />
+        </>
+
         
-    </>
+
+        
   );
   
   

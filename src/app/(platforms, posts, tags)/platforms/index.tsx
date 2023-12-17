@@ -1,6 +1,6 @@
 import { Text, FlatList, Button } from 'react-native';
 import axios from 'axios';
-import { Link, useRouter } from 'expo-router';
+import { Link, useRouter, useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
 import Item from '../../../components/PlatformItem';
 import PlatformItem from '../../../components/PlatformItem';
@@ -9,6 +9,11 @@ import PlatformItem from '../../../components/PlatformItem';
 
 export default function Page() {
   const [platforms, setPlatforms] = useState([]);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'All Platforms', });
+  }, [navigation]);
 
   useEffect(() => {
     //axios.get('http://localhost:3000/api/festivals')

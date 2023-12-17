@@ -1,5 +1,5 @@
 import { Text } from 'react-native';
-import { Slot, Redirect } from 'expo-router';
+import { Stack, Redirect } from 'expo-router';
 import Footer from '../../components/Footer';
 import { useSession } from '../../contexts/AuthContext'
 
@@ -18,7 +18,7 @@ export default function AuthLayout() {
   return (
     <>
     
-        <Slot />
+        <Stack />
         <Footer />
     </>
   ) ;

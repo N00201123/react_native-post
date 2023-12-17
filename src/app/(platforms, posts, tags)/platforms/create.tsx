@@ -37,9 +37,7 @@ const handleClick = () => {
     formData.append("name", form.name);
     formData.append("description", form.description);
 
-    //formData.append("image", {uri: form.image, name: "image.jpg", type: "image/jpeg"});
-
-    axios.post(`https://festivals-api.vercel.app/api/platforms/`, form, {
+    axios.post(`https://express-post-mhct.vercel.app/api/platforms/`, form, {
         headers: {
             Authorization: `Bearer ${session}`
         }
@@ -74,7 +72,11 @@ const handleClick = () => {
             id="description"
         />
 
-        
+      <Button 
+          onPress={handleClick}
+          title='Submit'
+          color="#eb3b5a"
+        />
     </>
   );
   

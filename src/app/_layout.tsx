@@ -9,30 +9,34 @@ export default function Layout() {
         name='index'
         options={{ 
             drawerLabel: "Home",
-            title: "testing"
+            title: ""
          }}  
     />
-     <Drawer.Screen 
-        name='(posts)'
-        options={{ 
-            drawerLabel: "Posts",
-            title: "Posts"
-         }}  
-    />
+    
+    
 
 <Drawer.Screen 
         name='(platforms)'
         options={{ 
             drawerLabel: "Platforms",
-            title: "Platforms"
+            title: ""
          }}  
     />
+
+<Drawer.Screen 
+        name='(posts)'
+        options={{ 
+            drawerLabel: "Posts",
+            title: ""
+         }}  
+    />
+
 
 <Drawer.Screen 
         name='(tags)'
         options={{ 
             drawerLabel: "Tags",
-            title: "Tags"
+            title: ""
          }}
       />
    </Drawer>;

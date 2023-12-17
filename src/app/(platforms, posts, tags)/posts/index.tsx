@@ -1,6 +1,6 @@
 import { Text, FlatList, Button } from 'react-native';
 import axios from 'axios';
-import { Link, useRouter } from 'expo-router';
+import { Link, useRouter, useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
 import Item from '../../../components/PostItem';
 import PostItem from '../../../components/PostItem';
@@ -9,6 +9,11 @@ import PostItem from '../../../components/PostItem';
 
 export default function Page() {
   const [posts, setPosts] = useState([]);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'All Posts', });
+  }, [navigation]);
 
   useEffect(() => {
     //axios.get('http://localhost:3000/api/festivals')
@@ -35,7 +40,7 @@ export default function Page() {
 
   return (
     <>
-        <Text>This is the view all platforms all page</Text>
+        <Text>This is the view all posts all page</Text>
 
         {postsList}
 

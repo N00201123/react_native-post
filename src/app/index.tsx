@@ -10,17 +10,25 @@ export default function Page() {
 
   return (
     <>
-        <Text>Home page</Text>
+    
         
 
         {(!session) ? <LoginForm /> :  (
           <>
 
       <Link href={'/posts'} asChild>
-            <Button title = "All posts"/>
-        </Link>          
+          <Button title = "All posts"/>
+        </Link>   
+
+      <Link href={'/platforms'} asChild>
+          <Button title = "All platforms" color="#E1C722"/>
+      </Link>         
+
+      <Link href={'/tags'} asChild>
+          <Button title = "All tags" color="#841584"/>
+      </Link>  
         <Text>You're are logged in</Text>
-          <Button onPress={signOut} title='Logout' />
+          <Button onPress={signOut} title='Logout' color="#22AAE1"/>
     </>
         )}
     

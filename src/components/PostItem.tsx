@@ -1,6 +1,7 @@
-import { Text, View, Button } from 'react-native';
+import { Text, View, StyleSheet, Button } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import DeleteBtn from './DeleteBtn';
+import { Image } from 'expo-image';
  
 interface MyProps {
     post: {
@@ -26,9 +27,22 @@ export default function PostItem({post, onDelete}: MyProps) {
          </Link>
 
            <Text>{post.likes}</Text>
+           <Image
+            style={{width: 200, height: 200}}
+            //source={`https://api-image-post.s3.eu-west-1.amazonaws.com/${post.image_path}`}
+           />
            <Button title="Edit" onPress={() => router.push(`/posts/${post._id}/edit`)}/>
            <DeleteBtn resource="posts" id={post._id} deleteCallback={onDelete}/>
-           <Text>___________________</Text>
+           {/* <Text>___________________</Text> */}
         </View>
     )
 }
+
+// const button = StyleSheet.create({
+//     container: {
+//       flex: 1,
+//       backgroundColor: '#fff',
+//       alignItems: 'center',
+//       justifyContent: 'center',
+//     },
+//   });

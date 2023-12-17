@@ -6,12 +6,12 @@ interface MyProps {
     tag: {
         _id: string,
         user: string;
-        posts: string;
+        posts: any;
     }
     onDelete: (id?: string) => void;
 }
 
-export default function PostItem({tag, onDelete}: MyProps) {
+export default function TagItem({tag, onDelete}: MyProps) {
     const router = useRouter();
     
     
@@ -26,8 +26,8 @@ export default function PostItem({tag, onDelete}: MyProps) {
          </Link>
 
            <Text>{tag.posts}</Text>
-           <Button title="Edit" onPress={() => router.push(`/posts/${tag._id}/edit`)}/>
-           <DeleteBtn resource="tag" id={tag._id} deleteCallback={onDelete}/>
+           {/* <Button title="Edit" onPress={() => router.push(`/tags/${tag._id}/edit`)}/>
+           <DeleteBtn resource="tag" id={tag._id} deleteCallback={onDelete}/> */}
            <Text>___________________</Text>
         </View>
     )
